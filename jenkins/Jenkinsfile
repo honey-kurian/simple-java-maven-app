@@ -18,24 +18,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh '/opt/homebrew/bin/mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+                sh '/opt/homebrew/bin/mvn test'
             }
         }
 
         stage ('Dependency track') {
           steps {
             // First generate Bill of Materials
-            sh 'mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom'
+            sh '/opt/homebrew/bin/mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom'
             // Then ingest results to dependency track platform
             withCredentials([string(credentialsId: 'dependency-track-api-key-global', variable: 'API_KEY')])
             {

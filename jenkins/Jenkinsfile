@@ -13,7 +13,6 @@ pipeline {
         APP_VERSION     = "1"
         DEFAULT_BRANCH  = 'master'
         USER_ID         = sh (returnStdout: true, script: 'echo \$(git show -s --pretty=%an)').trim()
-        APPROVERS       = oktaSL.checkOktaApprovers(this, 'app-jenkins-platform-approvers') // <- Need to change to infosec team
     }
 
     stages {
